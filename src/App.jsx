@@ -10,7 +10,11 @@ import { CartProvider } from './contexts/CartContext';
 import './App.css';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // استرجاع وضع الظلام من التخزين المحلي
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode === 'true';
+  });
 
   useEffect(() => {
     // تطبيق وضع الظلام على الصفحة
@@ -19,6 +23,8 @@ function App() {
     } else {
       document.documentElement.classList.remove('dark');
     }
+    // حفظ الإعداد في التخزين المحلي
+    localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
 
   const toggleDarkMode = () => {
@@ -28,7 +34,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
+        <div className="min-h-screen flex flex-col">
           <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           <main className="flex-grow container mx-auto px-4 py-8">
             <Routes>

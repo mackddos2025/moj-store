@@ -139,3 +139,46 @@ thead {
 .text-primary-foreground {
   color: var(--primary-foreground);
 }
+
+/* إصلاح مشكلة المسافة بين العناصر في الشريط الجانبي */
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-left: calc(2rem * var(--tw-space-x-reverse));
+  margin-right: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+/* إصلاح مشكلة المسافة بين العناصر في الاتجاه العربي */
+.mr-1 {
+  margin-left: 0.25rem;
+  margin-right: 0;
+}
+
+.mr-2 {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+.mr-4 {
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+.ml-1 {
+  margin-right: 0.25rem;
+  margin-left: 0;
+}
+
+.ml-2 {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+.ml-4 {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+/* إصلاح مشكلة الأيقونات في الاتجاه العربي */
+.rtl-icon {
+  transform: scaleX(-1);
+}

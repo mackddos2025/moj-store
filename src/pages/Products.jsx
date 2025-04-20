@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Search, Filter, X } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
+import { fetchProductsFromDB, fetchCategories } from '../lib/supabase';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,31 +14,35 @@ const Products = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [sortBy, setSortBy] = useState('default');
   const [showFilters, setShowFilters] = useState(false);
+  const [error, setError] = useState(null);
   
   const { addToCart } = useCart();
 
   // جلب المنتجات والفئات
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('https://fakestoreapi.com/products');
-        if (!response.ok) throw new Error('فشل في جلب البيانات');
-        const data = await response.json();
-        setProducts(data);
-        setFilteredProducts(data);
+        setError(null);
         
-        // استخراج الفئات الفريدة
-        const uniqueCategories = [...new Set(data.map(product => product.category))];
-        setCategories(uniqueCategories);
+        // جلب المنتجات
+        const productsData = await fetchProductsFromDB();
+        setProducts(productsData);
+        setFilteredProducts(productsData);
+        
+        // جلب الفئات
+        const categoriesData = await fetchCategories();
+        setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+        
       } catch (error) {
-        console.error('خطأ في جلب المنتجات:', error);
+        console.error('خطأ في جلب البيانات:', error);
+        setError('حدث خطأ أثناء جلب البيانات. يرجى المحاولة مرة أخرى.');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchData();
   }, []);
 
   // تطبيق الفلاتر عند تغيير أي من معايير التصفية
@@ -47,8 +52,8 @@ const Products = () => {
     // تطبيق فلتر البحث
     if (searchQuery) {
       result = result.filter(product => 
-        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        product.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     
@@ -71,7 +76,7 @@ const Products = () => {
         result.sort((a, b) => b.price - a.price);
         break;
       case 'rating':
-        result.sort((a, b) => b.rating.rate - a.rating.rate);
+        result.sort((a, b) => (b.rating?.rate || 0) - (a.rating?.rate || 0));
         break;
       default:
         // الترتيب الافتراضي
@@ -106,6 +111,29 @@ const Products = () => {
       button.innerText = 'إضافة للسلة';
     }, 1500);
   };
+
+  // عرض رسالة الخطأ إذا كان هناك خطأ
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <div className="bg-red-50 dark:bg-red-900/20 p-8 rounded-lg max-w-md mx-auto">
+          <div className="w-16 h-16 bg-red-100 dark:bg-red-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">حدث خطأ</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="inline-flex items-center bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+          >
+            إعادة المحاولة
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4">
@@ -237,6 +265,10 @@ const Products = () => {
                   src={product.image} 
                   alt={product.title} 
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://via.placeholder.com/150?text=صورة+غير+متوفرة';
+                  }}
                 />
               </div>
               <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2 line-clamp-1">{product.title}</h3>

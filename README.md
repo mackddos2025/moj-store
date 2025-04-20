@@ -24,13 +24,20 @@ cd moj-store
 npm install
 ```
 
-3. قم بتشغيل خادم التطوير:
+3. قم بإنشاء ملف `.env` في المجلد الرئيسي وأضف متغيرات البيئة الخاصة بـ Supabase:
+
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. قم بتشغيل خادم التطوير:
 
 ```bash
 npm run dev
 ```
 
-4. افتح المتصفح على العنوان التالي:
+5. افتح المتصفح على العنوان التالي:
 
 ```
 http://localhost:5173
@@ -44,14 +51,47 @@ http://localhost:5173
 - البحث والتصفية للمنتجات
 - وضع مظلم / فاتح
 - تصميم متجاوب لجميع أحجام الشاشات
+- تكامل مع Supabase لتخزين البيانات
 
 ## التقنيات المستخدمة
 
 - React.js
 - React Router
 - Tailwind CSS
-- Fake Store API
+- Supabase
+- Fake Store API (كبديل)
 - Lucide Icons
+
+## هيكل المشروع
+
+```
+moj-store/
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── components/
+│   │   ├── Footer.jsx
+│   │   └── Navbar.jsx
+│   ├── contexts/
+│   │   └── CartContext.jsx
+│   ├── lib/
+│   │   └── supabase.js
+│   ├── pages/
+│   │   ├── Cart.jsx
+│   │   ├── Home.jsx
+│   │   ├── ProductDetails.jsx
+│   │   └── Products.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   └── main.jsx
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+├── README.md
+├── tailwind.config.js
+└── vite.config.js
+```
 
 ## الاختبار
 
@@ -66,3 +106,11 @@ http://localhost:5173
 7. إزالة منتج من السلة
 8. إتمام عملية الشراء
 9. تبديل وضع الألوان (المظلم / الفاتح)
+
+## التطوير المستقبلي
+
+- إضافة نظام تسجيل الدخول وإدارة الحسابات
+- إضافة نظام المفضلة
+- إضافة نظام التقييمات والمراجعات
+- إضافة نظام الدفع الإلكتروني
+- إضافة لوحة تحكم للمسؤول

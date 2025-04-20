@@ -1,22 +1,32 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star } from 'lucide-react';
+import { fetchProductsFromDB } from '../lib/supabase';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // جلب المنتجات المميزة من واجهة برمجة التطبيقات
     const fetchFeaturedProducts = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('https://fakestoreapi.com/products?limit=4');
-        if (!response.ok) throw new Error('فشل في جلب البيانات');
-        const data = await response.json();
-        setFeaturedProducts(data);
+        setError(null);
+        
+        // جلب المنتجات
+        const productsData = await fetchProductsFromDB();
+        
+        // اختيار 4 منتجات عشوائية كمنتجات مميزة
+        const randomProducts = [...productsData]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 4);
+          
+        setFeaturedProducts(randomProducts);
       } catch (error) {
         console.error('خطأ في جلب المنتجات المميزة:', error);
+        setError('حدث خطأ أثناء جلب المنتجات المميزة. يرجى المحاولة مرة أخرى.');
       } finally {
         setIsLoading(false);
       }
@@ -51,6 +61,10 @@ const Home = () => {
                 src="https://images.unsplash.com/photo-1661961110218-35af7210f803?q=80&w=2070" 
                 alt="تسوق إلكتروني" 
                 className="rounded-lg shadow-lg max-h-80 object-cover w-full"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/800x400?text=صورة+غير+متوفرة';
+                }}
               />
             </div>
           </div>
@@ -71,7 +85,17 @@ const Home = () => {
             </Link>
           </div>
 
-          {isLoading ? (
+          {error ? (
+            <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center">
+              <p className="text-red-600 dark:text-red-400">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+              >
+                إعادة المحاولة
+              </button>
+            </div>
+          ) : isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {[...Array(4)].map((_, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 animate-pulse h-64"></div>
@@ -90,6 +114,10 @@ const Home = () => {
                       src={product.image} 
                       alt={product.title} 
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://via.placeholder.com/150?text=صورة+غير+متوفرة';
+                      }}
                     />
                   </div>
                   <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2 line-clamp-1">{product.title}</h3>
