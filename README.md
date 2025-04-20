@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+# MOJ Store - متجر إلكتروني
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+متجر إلكتروني متخصص في بيع أحدث المنتجات التقنية والإلكترونية بأفضل الأسعار.
 
-Currently, two official plugins are available:
+## كيفية تشغيل المشروع محلياً
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### المتطلبات الأساسية
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/) (الإصدار 14 أو أحدث)
+- [npm](https://www.npmjs.com/) (يأتي مع Node.js)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### خطوات التثبيت
 
-- Configure the top-level `parserOptions` property like this:
+1. قم بنسخ المشروع إلى جهازك:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/yourusername/moj-store.git
+cd moj-store
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. قم بتثبيت الاعتماديات:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
 ```
+
+3. قم بتشغيل خادم التطوير:
+
+```bash
+npm run dev
+```
+
+4. افتح المتصفح على العنوان التالي:
+
+```
+http://localhost:5173
+```
+
+## الميزات
+
+- واجهة مستخدم سهلة الاستخدام باللغة العربية
+- عرض المنتجات وتفاصيلها
+- سلة تسوق تفاعلية
+- البحث والتصفية للمنتجات
+- وضع مظلم / فاتح
+- تصميم متجاوب لجميع أحجام الشاشات
+
+## التقنيات المستخدمة
+
+- React.js
+- React Router
+- Tailwind CSS
+- Fake Store API
+- Lucide Icons
+
+## الاختبار
+
+للتأكد من أن المشروع يعمل بشكل صحيح، يمكنك اختبار الوظائف التالية:
+
+1. تصفح الصفحة الرئيسية والمنتجات
+2. البحث عن منتج معين
+3. تصفية المنتجات حسب الفئة والسعر
+4. عرض تفاصيل المنتج
+5. إضافة منتج إلى سلة التسوق
+6. تعديل كمية المنتجات في السلة
+7. إزالة منتج من السلة
+8. إتمام عملية الشراء
+9. تبديل وضع الألوان (المظلم / الفاتح)
