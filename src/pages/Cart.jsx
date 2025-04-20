@@ -44,7 +44,7 @@ const Cart = () => {
           </p>
           <Link 
             to="/products" 
-            className="inline-flex items-center bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <ShoppingBag className="mr-2 h-5 w-5" />
             مواصلة التسوق
@@ -69,7 +69,7 @@ const Cart = () => {
           </p>
           <Link 
             to="/products" 
-            className="inline-flex items-center bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <ArrowRight className="mr-2 h-5 w-5" />
             تصفح المنتجات
@@ -110,12 +110,16 @@ const Cart = () => {
                               src={item.image} 
                               alt={item.title} 
                               className="h-full w-full object-contain"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = 'https://via.placeholder.com/150?text=صورة+غير+متوفرة';
+                              }}
                             />
                           </div>
                           <div className="mr-4">
                             <Link 
                               to={`/products/${item.id}`}
-                              className="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-primary line-clamp-1"
+                              className="text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 line-clamp-1"
                             >
                               {item.title}
                             </Link>
@@ -183,7 +187,7 @@ const Cart = () => {
               <button
                 onClick={handleCheckout}
                 disabled={isCheckingOut}
-                className={`w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-medium transition-colors ${
+                className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-colors ${
                   isCheckingOut ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
               >
@@ -193,7 +197,7 @@ const Cart = () => {
               <div className="mt-6">
                 <Link 
                   to="/products" 
-                  className="text-primary hover:underline flex items-center justify-center"
+                  className="text-blue-600 hover:underline flex items-center justify-center"
                 >
                   <ArrowRight className="mr-2 h-4 w-4" />
                   مواصلة التسوق

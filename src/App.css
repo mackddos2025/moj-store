@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
-  --primary-foreground: #ffffff;
-}
-
 /* تعديل الاتجاه للغة العربية */
 html {
   direction: rtl;
@@ -16,32 +10,38 @@ html {
 /* تنسيق عام */
 body {
   font-family: 'Cairo', sans-serif;
-  @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  background-color: #f9fafb;
+  color: #111827;
 }
 
 /* تنسيق الوضع المظلم */
-.dark {
-  color-scheme: dark;
+.dark body {
+  background-color: #111827;
+  color: #f9fafb;
 }
 
 /* تنسيق الأزرار */
 button, .button {
-  @apply transition-all duration-200;
+  transition: all 0.2s;
 }
 
 /* تنسيق الروابط */
 a {
-  @apply transition-colors duration-200;
+  transition: colors 0.2s;
 }
 
 /* تنسيق الصور */
 img {
-  @apply max-w-full h-auto;
+  max-width: 100%;
+  height: auto;
 }
 
 /* تنسيق الحاويات */
 .container {
-  @apply px-4 mx-auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* تنسيق العناصر المتحركة */
@@ -60,52 +60,121 @@ img {
 
 /* تنسيق الخطوط */
 h1, h2, h3, h4, h5, h6 {
-  @apply font-bold;
+  font-weight: 700;
 }
 
 /* تنسيق الأقسام */
 section {
-  @apply py-8 md:py-12;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }
 
 /* تنسيق البطاقات */
 .card {
-  @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+}
+
+.dark .card {
+  background-color: #1f2937;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* تنسيق الأزرار الرئيسية */
 .btn-primary {
-  @apply bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
 }
 
 /* تنسيق الأزرار الثانوية */
 .btn-secondary {
-  @apply bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg font-medium transition-colors;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dark .btn-secondary {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.dark .btn-secondary:hover {
+  background-color: #4b5563;
 }
 
 /* تنسيق حقول الإدخال */
 input, select, textarea {
-  @apply bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.dark input, .dark select, .dark textarea {
+  background-color: #1f2937;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #3b82f6;
 }
 
 /* تنسيق الجداول */
 table {
-  @apply w-full;
+  width: 100%;
 }
 
 /* تنسيق الصفوف في الجداول */
 tr {
-  @apply border-b border-gray-200 dark:border-gray-700;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dark tr {
+  border-bottom: 1px solid #4b5563;
 }
 
 /* تنسيق الخلايا في الجداول */
 td, th {
-  @apply px-4 py-2;
+  padding: 0.5rem 1rem;
 }
 
 /* تنسيق رأس الجدول */
 thead {
-  @apply bg-gray-50 dark:bg-gray-900;
+  background-color: #f9fafb;
+}
+
+.dark thead {
+  background-color: #111827;
 }
 
 /* تنسيق نص القطع */
@@ -121,30 +190,6 @@ thead {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-/* تنسيق الألوان الرئيسية */
-.text-primary {
-  color: var(--primary);
-}
-
-.bg-primary {
-  background-color: var(--primary);
-}
-
-.bg-primary-dark {
-  background-color: var(--primary-dark);
-}
-
-.text-primary-foreground {
-  color: var(--primary-foreground);
-}
-
-/* إصلاح مشكلة المسافة بين العناصر في الشريط الجانبي */
-.space-x-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-left: calc(2rem * var(--tw-space-x-reverse));
-  margin-right: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 /* إصلاح مشكلة المسافة بين العناصر في الاتجاه العربي */

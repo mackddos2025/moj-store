@@ -7,18 +7,5 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true
-  },
-  build: {
-    outDir: 'dist',
-    sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-  },
+  }
 })

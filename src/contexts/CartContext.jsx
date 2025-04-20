@@ -5,11 +5,20 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    // استرجاع سلة التسوق من التخزين المحلي عند بدء التطبيق
+  const [cart, setCart] = useState([]);
+
+  // استرجاع سلة التسوق من التخزين المحلي عند بدء التطبيق
+  useEffect(() => {
     const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (error) {
+        console.error('Error parsing cart from localStorage:', error);
+        setCart([]);
+      }
+    }
+  }, []);
 
   // حفظ سلة التسوق في التخزين المحلي عند تغييرها
   useEffect(() => {

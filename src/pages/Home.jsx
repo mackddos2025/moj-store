@@ -18,12 +18,16 @@ const Home = () => {
         // جلب المنتجات
         const productsData = await fetchProductsFromDB();
         
-        // اختيار 4 منتجات عشوائية كمنتجات مميزة
-        const randomProducts = [...productsData]
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 4);
-          
-        setFeaturedProducts(randomProducts);
+        if (productsData && productsData.length > 0) {
+          // اختيار 4 منتجات عشوائية كمنتجات مميزة
+          const randomProducts = [...productsData]
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4);
+            
+          setFeaturedProducts(randomProducts);
+        } else {
+          setError('لا توجد منتجات متاحة حالياً');
+        }
       } catch (error) {
         console.error('خطأ في جلب المنتجات المميزة:', error);
         setError('حدث خطأ أثناء جلب المنتجات المميزة. يرجى المحاولة مرة أخرى.');
@@ -38,7 +42,7 @@ const Home = () => {
   return (
     <div className="space-y-16">
       {/* قسم البانر الرئيسي */}
-      <section className="relative bg-gradient-to-r from-primary to-primary-dark rounded-2xl overflow-hidden">
+      <section className="relative bg-gradient-to-r from-blue-500 to-blue-700 rounded-2xl overflow-hidden">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="text-white space-y-6">
@@ -49,7 +53,7 @@ const Home = () => {
               <div className="pt-4">
                 <Link 
                   to="/products" 
-                  className="inline-flex items-center bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
                 >
                   تسوق الآن
                   <ArrowRight className="mr-2 h-5 w-5" />
@@ -78,7 +82,7 @@ const Home = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">منتجات مميزة</h2>
             <Link 
               to="/products" 
-              className="text-primary hover:underline inline-flex items-center"
+              className="text-blue-600 hover:underline inline-flex items-center"
             >
               عرض الكل
               <ArrowRight className="mr-1 h-4 w-4" />
@@ -90,7 +94,7 @@ const Home = () => {
               <p className="text-red-600 dark:text-red-400">{error}</p>
               <button 
                 onClick={() => window.location.reload()}
-                className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 إعادة المحاولة
               </button>
@@ -153,8 +157,8 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -163,8 +167,8 @@ const Home = () => {
             </div>
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -173,8 +177,8 @@ const Home = () => {
             </div>
             
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>

@@ -15,13 +15,13 @@ const Footer = () => {
               متجر إلكتروني متخصص في بيع أحدث المنتجات التقنية والإلكترونية بأفضل الأسعار.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+              <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                 <Facebook size={20} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+              <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                 <Twitter size={20} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+              <a href="#" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                 <Instagram size={20} />
               </a>
             </div>
@@ -32,17 +32,17 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">روابط سريعة</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+                <Link to="/" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                   الرئيسية
                 </Link>
               </li>
               <li>
-                <Link to="/products" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+                <Link to="/products" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                   المنتجات
                 </Link>
               </li>
               <li>
-                <Link to="/cart" className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-foreground">
+                <Link to="/cart" className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400">
                   سلة التسوق
                 </Link>
               </li>
@@ -54,15 +54,15 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">اتصل بنا</h3>
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
-                <MapPin size={18} className="text-primary dark:text-primary-foreground" />
+                <MapPin size={18} className="text-blue-600 dark:text-blue-400" />
                 <span className="text-gray-600 dark:text-gray-400">الرياض، المملكة العربية السعودية</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Phone size={18} className="text-primary dark:text-primary-foreground" />
+                <Phone size={18} className="text-blue-600 dark:text-blue-400" />
                 <span className="text-gray-600 dark:text-gray-400">+966 123 456 789</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Mail size={18} className="text-primary dark:text-primary-foreground" />
+                <Mail size={18} className="text-blue-600 dark:text-blue-400" />
                 <span className="text-gray-600 dark:text-gray-400">info@mojstore.com</span>
               </li>
             </ul>

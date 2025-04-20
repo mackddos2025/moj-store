@@ -23,16 +23,26 @@ const ProductDetails = () => {
         
         // جلب تفاصيل المنتج
         const productData = await fetchProductById(id);
-        setProduct(productData);
         
-        // جلب المنتجات ذات الصلة (من نفس الفئة)
-        if (productData?.category) {
-          const relatedResponse = await fetch(`https://fakestoreapi.com/products/category/${productData.category}?limit=4`);
-          if (relatedResponse.ok) {
-            const relatedData = await relatedResponse.json();
-            // استبعاد المنتج الحالي من القائمة
-            setRelatedProducts(relatedData.filter(item => item.id !== productData.id).slice(0, 4));
+        if (productData && productData.id) {
+          setProduct(productData);
+          
+          // جلب المنتجات ذات الصلة (من نفس الفئة)
+          if (productData?.category) {
+            try {
+              const relatedResponse = await fetch(`https://fakestoreapi.com/products/category/${encodeURIComponent(productData.category)}?limit=4`);
+              if (relatedResponse.ok) {
+                const relatedData = await relatedResponse.json();
+                // استبعاد المنتج الحالي من القائمة
+                setRelatedProducts(relatedData.filter(item => item.id !== productData.id).slice(0, 4));
+              }
+            } catch (error) {
+              console.error('Error fetching related products:', error);
+              setRelatedProducts([]);
+            }
           }
+        } else {
+          setError('لم يتم العثور على المنتج');
         }
       } catch (error) {
         console.error('خطأ في جلب تفاصيل المنتج:', error);
@@ -63,6 +73,9 @@ const ProductDetails = () => {
       addToCart(product, quantity);
       // إعادة تعيين الكمية بعد الإضافة
       setQuantity(1);
+      
+      // إظهار رسالة تأكيد (يمكن استبدالها بمكون toast)
+      alert('تمت إضافة المنتج إلى سلة التسوق');
     }
   };
 
@@ -101,7 +114,7 @@ const ProductDetails = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-8">{error}</p>
           <Link 
             to="/products" 
-            className="inline-flex items-center bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             العودة إلى المنتجات
@@ -118,7 +131,7 @@ const ProductDetails = () => {
         <p className="text-gray-600 dark:text-gray-400 mb-8">لم يتم العثور على المنتج المطلوب.</p>
         <Link 
           to="/products" 
-          className="inline-flex items-center text-primary hover:underline"
+          className="inline-flex items-center text-blue-600 hover:underline"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
           العودة إلى المنتجات
@@ -132,7 +145,7 @@ const ProductDetails = () => {
       {/* رابط العودة */}
       <Link 
         to="/products" 
-        className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-primary mb-6"
+        className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 mb-6"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         العودة إلى المنتجات
@@ -194,7 +207,7 @@ const ProductDetails = () => {
           
           {/* اختيار الكمية */}
           <div className="flex items-center mb-6">
-            <span className="text-gray-700 dark:text-gray-300 mr-4">الكمية:</span>
+            <span className="text-gray-700 dark:text-gray-300 ml-4">الكمية:</span>
             <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-lg">
               <button 
                 onClick={decrementQuantity}
@@ -216,7 +229,7 @@ const ProductDetails = () => {
           {/* زر إضافة للسلة */}
           <button
             onClick={handleAddToCart}
-            className="w-full md:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="w-full md:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             <ShoppingCart size={18} />
             إضافة للسلة
@@ -232,7 +245,7 @@ const ProductDetails = () => {
               onClick={() => setActiveTab('description')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'description'
-                  ? 'border-primary text-primary'
+                  ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
               }`}
             >
@@ -242,7 +255,7 @@ const ProductDetails = () => {
               onClick={() => setActiveTab('details')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'details'
-                  ? 'border-primary text-primary'
+                  ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
               }`}
             >

@@ -36,15 +36,15 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <div className="flex justify-between items-center h-16">
           {/* الشعار */}
           <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary dark:text-primary-foreground">MOJ Store</span>
+            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">MOJ Store</span>
           </Link>
 
           {/* قائمة التنقل للشاشات الكبيرة */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-foreground">
+            <Link to="/" className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
               الرئيسية
             </Link>
-            <Link to="/products" className="text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-foreground">
+            <Link to="/products" className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400">
               المنتجات
             </Link>
           </div>
@@ -64,7 +64,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <Link to="/cart" className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
               <ShoppingCart size={20} />
               {getCartItemsCount() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {getCartItemsCount()}
                 </span>
               )}
@@ -87,14 +87,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <div className="flex flex-col space-y-4">
               <Link 
                 to="/" 
-                className="text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-foreground"
+                className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
               >
                 الرئيسية
               </Link>
               <Link 
                 to="/products" 
-                className="text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-foreground"
+                className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
               >
                 المنتجات

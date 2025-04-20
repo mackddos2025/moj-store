@@ -47,6 +47,8 @@ const Products = () => {
 
   // تطبيق الفلاتر عند تغيير أي من معايير التصفية
   useEffect(() => {
+    if (!products || products.length === 0) return;
+    
     let result = [...products];
     
     // تطبيق فلتر البحث
@@ -126,7 +128,7 @@ const Products = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-8">{error}</p>
           <button 
             onClick={() => window.location.reload()}
-            className="inline-flex items-center bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             إعادة المحاولة
           </button>
@@ -148,7 +150,7 @@ const Products = () => {
             placeholder="ابحث عن منتج..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
           />
         </div>
         
@@ -156,7 +158,7 @@ const Products = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
+            className="border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-gray-200"
           >
             <option value="default">الترتيب الافتراضي</option>
             <option value="price-asc">السعر: من الأقل للأعلى</option>
@@ -181,7 +183,7 @@ const Products = () => {
             <h3 className="font-semibold text-gray-800 dark:text-gray-200">الفلاتر</h3>
             <button
               onClick={resetFilters}
-              className="text-sm text-primary hover:underline flex items-center gap-1"
+              className="text-sm text-blue-600 hover:underline flex items-center gap-1"
             >
               <X size={14} />
               إعادة تعيين
@@ -195,7 +197,7 @@ const Products = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-900 dark:text-gray-200"
+                className="w-full border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:text-gray-200"
               >
                 <option value="">جميع الفئات</option>
                 {categories.map(category => (
@@ -247,7 +249,7 @@ const Products = () => {
           <p className="text-gray-500 dark:text-gray-400">لم يتم العثور على منتجات تطابق معايير البحث الخاصة بك.</p>
           <button
             onClick={resetFilters}
-            className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             إعادة تعيين الفلاتر
           </button>
@@ -291,7 +293,7 @@ const Products = () => {
                 <span className="font-bold text-gray-900 dark:text-gray-100">${product.price}</span>
                 <button
                   onClick={(e) => handleAddToCart(product, e)}
-                  className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors dark:text-gray-200"
+                  className="text-sm px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-blue-600 hover:text-white transition-colors dark:text-gray-200"
                 >
                   إضافة للسلة
                 </button>
